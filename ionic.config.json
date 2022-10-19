@@ -1,0 +1,7 @@
+{
+  "name": "projekt_zespolowy_gr2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
