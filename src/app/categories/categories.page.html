@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Kategorie
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Categories</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let cat of categories">
+      <ion-label>{{cat.name}}</ion-label>
+      <ion-button color="danger" (click)="remove(cat.uuid)">
+        <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <app-no-data *ngIf="!categories.length" text="Brak kategorii"></app-no-data>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddCategoryModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

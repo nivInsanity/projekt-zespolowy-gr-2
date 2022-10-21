@@ -1,7 +1,7 @@
 {
-  "name": "projekt_zespolowy_gr2",
+  "name": "projekt-zespolowy",
   "integrations": {
     "capacitor": {}
   },
-  "type": "react"
+  "type": "angular"
 }

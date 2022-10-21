@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Anuluj</ion-button>
+    </ion-buttons>
+    <ion-title>Dodaj kategorię</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [disabled]="!name.length || !description.length">Zapisz</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Nazwa</ion-label>
+    <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Nazwa</ion-label>
+    <ion-textarea name="description" placeholder="opis" (ionChange)="changeDesc($event)"></ion-textarea>
+  </ion-item>
+</ion-content>
