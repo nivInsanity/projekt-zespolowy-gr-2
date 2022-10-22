@@ -17,8 +17,11 @@ export class AddProductModalComponent {
   name = '';
   description = '';
   categoryId = null;
+  validityData = '';
 
   categories: Array<Category> = [];
+
+  isOpenDatePicker = true;
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,7 +39,8 @@ export class AddProductModalComponent {
     const product = new Product({
       name: this.name,
       description: this.description,
-      categoryId: this.categoryId
+      categoryId: this.categoryId,
+      validityData: this.validityData
     });
 
     this.state.addProduct(product).then(() => {
@@ -57,4 +61,9 @@ export class AddProductModalComponent {
   changeCategory(e) {
     this.categoryId = e.target.value;
   }
+
+  changeDate(e) {
+    this.validityData = e.target.value;
+    this.isOpenDatePicker = false;
+  };
 }

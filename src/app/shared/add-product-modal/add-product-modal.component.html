@@ -25,4 +25,11 @@
         <ion-select-option [value]="cat.uuid" *ngFor="let cat of categories">{{cat.name}}</ion-select-option>
       </ion-select>
   </ion-item>
+
+  <ion-item>
+    <ion-datetime (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker"></ion-datetime>
+    <ion-button (click)="isOpenDatePicker = true" *ngIf="!isOpenDatePicker">
+      {{validityData}}
+    </ion-button>
+  </ion-item>
 </ion-content>

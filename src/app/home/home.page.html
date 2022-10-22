@@ -22,7 +22,7 @@
       </ion-item-divider>
 
       <ion-item *ngFor="let prod of products | filterProductsByCatId: cat.uuid">
-        <ion-label>{{prod.name}}</ion-label>
+        <ion-label>{{prod.name}}  <span *ngIf="prod.validityData">({{prod.validityData}})</span></ion-label>
         <ion-button color="danger" (click)="remove(prod.uuid)">
           <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
         </ion-button>
