@@ -31,12 +31,12 @@ export class StateService {
 
       promises.push([
         storage.get('categories').then(categories => {
-          if(categories) {
+          if (categories) {
             this.categories$.next(categories);
           }
         }),
         storage.get('products').then(products => {
-          if(products) {
+          if (products) {
             this.products$.next(products);
           }
         })
@@ -63,7 +63,12 @@ export class StateService {
       this.categories$.getValue().filter(category => (category.uuid !== uuid))
     );
 
-    return this.saveCategories();
+    this.products$.next(
+      this.products$.getValue().filter(product => (product.categoryId !== uuid))
+    );
+
+    this.saveCategories();
+    this.saveProducts();
   }
 
 

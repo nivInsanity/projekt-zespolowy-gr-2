@@ -1,4 +1,10 @@
 .noData {
   text-align: center;
   color: #ccc;
+  padding: 32px 0;
+
+  svg-icon {
+    display: block;
+    margin-bottom: 16px;
+  }
 }

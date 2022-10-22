@@ -14,12 +14,20 @@
   </ion-header>
 
   <ion-list>
-    <ion-item *ngFor="let cat of products">
-      <ion-label>{{cat.name}}</ion-label>
-      <ion-button color="danger" (click)="remove(cat.uuid)">
-        <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
-      </ion-button>
-    </ion-item>
+    <div *ngFor="let cat of categories">
+      <ion-item-divider *ngIf="(products | filterProductsByCatId: cat.uuid).length">
+        <ion-label class="catName">
+          {{cat.name}}
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let prod of products | filterProductsByCatId: cat.uuid">
+        <ion-label>{{prod.name}}</ion-label>
+        <ion-button color="danger" (click)="remove(prod.uuid)">
+          <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
   </ion-list>
 
   <app-no-data *ngIf="!products.length" text="Brak produktów"></app-no-data>

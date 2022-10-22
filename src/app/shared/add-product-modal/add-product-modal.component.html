@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Dodaj produkt</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!name.length || !description.length">Zapisz</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!name.length || !categoryId">Zapisz</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -21,8 +21,7 @@
   </ion-item>
 
   <ion-item>
-      <ion-select placeholder="Select fruit">
-        <ion-select-option [value]="null">Brak kategorii</ion-select-option>
+      <ion-select interface="action-sheet" placeholder="Wybierz kategorię" (ionChange)="changeCategory($event)" style="width: 100%">
         <ion-select-option [value]="cat.uuid" *ngFor="let cat of categories">{{cat.name}}</ion-select-option>
       </ion-select>
   </ion-item>

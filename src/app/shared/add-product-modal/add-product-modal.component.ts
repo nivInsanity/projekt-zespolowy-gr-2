@@ -4,6 +4,7 @@ import {StateService} from "../../_services/state.service";
 import {Category} from "../../_models/Category.model";
 import {ToastService} from "../../_services/toast.service";
 import {Product} from "../../_models/Product.model";
+import {AddCategoryModalComponent} from "../add-category-modal/add-category-modal.component";
 
 @Component({
   selector: 'app-add-category-modal',
@@ -22,7 +23,7 @@ export class AddProductModalComponent {
   constructor(
     private modalCtrl: ModalController,
     private state: StateService,
-    private toast: ToastService
+    private toast: ToastService,
   ) {
     this.state.categories$.subscribe(categories => this.categories = categories);
   }
@@ -51,5 +52,9 @@ export class AddProductModalComponent {
 
   changeDesc(e) {
     this.description = e.target.value;
+  }
+
+  changeCategory(e) {
+    this.categoryId = e.target.value;
   }
 }
