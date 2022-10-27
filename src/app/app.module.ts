@@ -8,11 +8,11 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IonicStorageModule} from '@ionic/storage-angular';
 import {StorageService} from './_services/storage.service';
-import {LoaderComponent} from "./shared/loader/loader.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NoDataComponent} from "./shared/no-data/no-data.component";
-import {SharedModule} from "./shared/shared.module";
-import {AngularSvgIconModule} from "angular-svg-icon";
+import {LoaderComponent} from './shared/loader/loader.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NoDataComponent} from './shared/no-data/no-data.component';
+import {SharedModule} from './shared/shared.module';
+import {AngularSvgIconModule} from 'angular-svg-icon';
 import {FilterProductsByCatIdPipe} from './_pipes/filter-products-by-cat-id/filter-products-by-cat-id.pipe';
 
 @NgModule({

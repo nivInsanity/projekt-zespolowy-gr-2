@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {StateService} from '../_services/state.service';
 import {Product} from '../_models/Product.model';
-import {StorageService} from "../_services/storage.service";
-import {AddCategoryModalComponent} from "../shared/add-category-modal/add-category-modal.component";
-import {ModalController} from "@ionic/angular";
-import {AddProductModalComponent} from "../shared/add-product-modal/add-product-modal.component";
-import {ToastService} from "../_services/toast.service";
-import {Category} from "../_models/Category.model";
+import {StorageService} from '../_services/storage.service';
+import {AddCategoryModalComponent} from '../shared/add-category-modal/add-category-modal.component';
+import {ModalController} from '@ionic/angular';
+import {AddProductModalComponent} from '../shared/add-product-modal/add-product-modal.component';
+import {ToastService} from '../_services/toast.service';
+import {Category} from '../_models/Category.model';
 
 @Component({
   selector: 'app-home',
