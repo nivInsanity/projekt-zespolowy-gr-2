@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonModal, ModalController} from "@ionic/angular";
-import {StateService} from "../../_services/state.service";
-import {Category} from "../../_models/Category.model";
-import {ToastService} from "../../_services/toast.service";
-import {Product} from "../../_models/Product.model";
-import {AddCategoryModalComponent} from "../add-category-modal/add-category-modal.component";
+import {IonModal, ModalController} from '@ionic/angular';
+import {StateService} from '../../_services/state.service';
+import {Category} from '../../_models/Category.model';
+import {ToastService} from '../../_services/toast.service';
+import {Product} from '../../_models/Product.model';
+import {AddCategoryModalComponent} from '../add-category-modal/add-category-modal.component';
 
 @Component({
   selector: 'app-add-category-modal',
