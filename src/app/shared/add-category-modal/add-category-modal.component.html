@@ -3,7 +3,11 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">Anuluj</ion-button>
     </ion-buttons>
-    <ion-title>Dodaj kategorię</ion-title>
+    <ion-title>
+      <ng-container *ngIf="category">Edytuj </ng-container>
+      <ng-container *ngIf="!category">Dodaj </ng-container>
+       kategorię
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="confirm()" [disabled]="!name.length">Zapisz</ion-button>
     </ion-buttons>
@@ -12,11 +16,20 @@
 <ion-content class="ion-padding">
   <ion-item>
     <ion-label position="stacked">Nazwa</ion-label>
-    <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)"></ion-input>
+    <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)" [value]="name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Przypomnienie o końcu terminu</ion-label>
+    <ion-select interface="action-sheet" placeholder="Przypomnienie o końcu terminu" (ionChange)="changeNotifyDays($event)" [value]="notifyDays">
+      <ion-select-option [value]="1">1 dzień przed</ion-select-option>
+      <ion-select-option [value]="7">7 dni przed</ion-select-option>
+      <ion-select-option [value]="14">14 dni przed</ion-select-option>
+    </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Nazwa</ion-label>
-    <ion-textarea name="description" placeholder="opis" (ionChange)="changeDesc($event)"></ion-textarea>
+    <ion-textarea name="description" placeholder="opis" (ionChange)="changeDesc($event)" [value]="description"></ion-textarea>
   </ion-item>
 </ion-content>

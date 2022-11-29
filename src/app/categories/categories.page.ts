@@ -32,4 +32,15 @@ export class CategoriesPage {
     this.toast.show('Usunięto kategorię');
     this.state.removeCategory(uuid);
   }
+
+  async openEditCategoryModal(category: Category) {
+    const modal = await this.modal.create({
+      component: AddCategoryModalComponent,
+      componentProps: {
+        category
+      }
+    });
+
+    modal.present();
+  }
 }

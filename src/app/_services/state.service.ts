@@ -15,7 +15,8 @@ export class StateService {
   state = new State({
       loading: true,
       categories: [],
-      products: []
+      products: [],
+      locations: []
     }
   );
 
@@ -24,6 +25,7 @@ export class StateService {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject(this.state.loading);
   categories$: BehaviorSubject<Array<Category>> = new BehaviorSubject(this.state.categories);
   products$: BehaviorSubject<Array<Product>> = new BehaviorSubject(this.state.products);
+  locations$: BehaviorSubject<Array<Location>> = new BehaviorSubject<Array<Location>>(this.state.locations);
 
   constructor(private storage: StorageService, private loadingCtrl: LoadingController) {
     storage.init().then(() => {
@@ -38,6 +40,11 @@ export class StateService {
         storage.get('products').then(products => {
           if (products) {
             this.products$.next(products);
+          }
+        }),
+        storage.get('locations').then(locations => {
+          if (locations) {
+            this.locations$.next(locations);
           }
         })
       ]);
@@ -54,6 +61,12 @@ export class StateService {
       ...this.categories$.getValue(),
       category
     ]);
+
+    return this.saveCategories();
+  }
+
+  editCategory(category: Category) {
+    this.categories$.next(this.categories$.getValue().map(cat => cat.uuid === category.uuid ? category : cat));
 
     return this.saveCategories();
   }
@@ -104,6 +117,24 @@ export class StateService {
 
     this.loading$.next(true);
     return this.storage.set('products', products).then(() => {
+      this.loading$.next(false);
+    });
+  }
+
+  addLocation(location: Location) {
+    this.locations$.next([
+      ...this.locations$.getValue(),
+      location
+    ]);
+
+    return this.saveLocations();
+  }
+
+  saveLocations() {
+    const locations = this.locations$.getValue();
+
+    this.loading$.next(true);
+    return this.storage.set('locations', locations).then(() => {
       this.loading$.next(false);
     });
   }

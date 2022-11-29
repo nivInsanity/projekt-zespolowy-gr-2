@@ -14,7 +14,7 @@
   </ion-header>
 
   <ion-list>
-    <ion-item *ngFor="let cat of categories">
+    <ion-item *ngFor="let cat of categories" (click)="openEditCategoryModal(cat)">
       <ion-label>{{cat.name}}</ion-label>
       <ion-button color="danger" (click)="remove(cat.uuid)">
         <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
