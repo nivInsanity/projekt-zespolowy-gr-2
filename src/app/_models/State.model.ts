@@ -1,5 +1,6 @@
 import {Product} from './Product.model';
 import {Category} from './Category.model';
+import {Location} from "./Location.model";
 
 export class State {
   loading = false;

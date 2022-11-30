@@ -3,18 +3,24 @@
     <ion-title>
       Lokalizacje
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<!--  <ion-header collapse="condense">-->
-<!--    <ion-toolbar>-->
-<!--      <ion-title size="large">-->
-<!--        Ustawienia-->
 
-<!--      </ion-title>-->
-<!--    </ion-toolbar>-->
-<!--  </ion-header>-->
+  <ion-list>
+    <ion-item *ngFor="let location of locations" (click)="openEditLocation(location)">
+      <ion-label>{{location.name}}</ion-label>
+      <ion-button color="danger" (click)="remove(location.uuid)">
+        <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <app-no-data *ngIf="!locations.length" text="Brak lokalizacji"></app-no-data>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openAddLocationModal()">

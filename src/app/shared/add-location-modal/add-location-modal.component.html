@@ -7,14 +7,14 @@
       Dodaj lokalizację
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!name.length">Zapisz</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!location.name.length">Zapisz</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
     <ion-label position="stacked">Nazwa</ion-label>
-    <ion-input name="name" placeholder="nazwa" (ionChange)="handleChangeName($event)" [value]="name"></ion-input>
+    <ion-input name="name" placeholder="nazwa" (ionChange)="handleChangeName($event)" [value]="location.name"></ion-input>
   </ion-item>
 
 </ion-content>

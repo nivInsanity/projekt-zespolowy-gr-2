@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonModal, ModalController} from "@ionic/angular";
 import {StateService} from "../../_services/state.service";
+import {Location} from "../../_models/Location.model";
 
 @Component({
   selector: 'app-add-location-modal',
@@ -8,20 +9,19 @@ import {StateService} from "../../_services/state.service";
   styleUrls: ['./add-location-modal.component.scss'],
 })
 export class AddLocationModalComponent implements OnInit {
-  name: string = '';
+  location: Location = new Location();
 
   constructor(private modal: ModalController, private state: StateService) { }
 
   ngOnInit() {}
 
   handleChangeName(e) {
-    this.name = e.target.value;
+    this.location.name = e.target.value;
   }
 
   confirm() {
-    // this.state.addLocation({
-    //   name: this.name
-    // })
+    this.state.addLocation(this.location);
+    this.modal.dismiss();
   }
 
   cancel() {

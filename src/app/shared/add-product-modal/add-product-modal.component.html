@@ -16,20 +16,32 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">Nazwa</ion-label>
-    <ion-textarea name="description" placeholder="opis" (ionChange)="changeDesc($event)"></ion-textarea>
-  </ion-item>
-
-  <ion-item>
       <ion-select interface="action-sheet" placeholder="Wybierz kategorię" (ionChange)="changeCategory($event)" style="width: 100%">
         <ion-select-option [value]="cat.uuid" *ngFor="let cat of categories">{{cat.name}}</ion-select-option>
       </ion-select>
   </ion-item>
   <div class="dataP">Data przydatności</div>
+  <div class="daysCounter">
+    <div>
+      <ion-button (click)="changeDays(expirationDays-1)">-</ion-button>
+    </div>
+    <div>
+      <ion-label position="stacked">Dni</ion-label>
+      <ion-input name="days" placeholder="Dni" (ionChange)="changeDays($event.target.value)" [value]="expirationDays"></ion-input>
+    </div>
+    <div>
+      <ion-button (click)="changeDays(expirationDays+1)">+</ion-button>
+    </div>
+  </div>
   <ion-item>
-    <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker"></ion-datetime>
-    <ion-button (click)="isOpenDatePicker = true" *ngIf="!isOpenDatePicker">
-      {{validityData}}
+    <ion-button (click)="isOpenDatePicker = true" *ngIf="!isOpenDatePicker" style="margin: 0 auto;">
+      {{validityData.toLocaleDateString()}}
     </ion-button>
+  </ion-item>
+  <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker"></ion-datetime>
+
+  <ion-item>
+    <ion-label position="stacked">Notatki</ion-label>
+    <ion-textarea name="description" placeholder="notatki" (ionChange)="changeDesc($event)"></ion-textarea>
   </ion-item>
 </ion-content>

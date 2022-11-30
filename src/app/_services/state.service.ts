@@ -5,6 +5,7 @@ import {Product} from '../_models/Product.model';
 import {Category} from '../_models/Category.model';
 import {StorageService} from './storage.service';
 import {LoadingController} from '@ionic/angular';
+import {Location} from "../_models/Location.model";
 
 @Injectable({
   providedIn: 'root'
@@ -137,6 +138,14 @@ export class StateService {
     return this.storage.set('locations', locations).then(() => {
       this.loading$.next(false);
     });
+  }
+
+  removeLocation(uuid: string) {
+    this.locations$.next(
+      this.locations$.getValue().filter(location => (location.uuid !== uuid))
+    );
+
+    this.saveLocations();
   }
 }
 
