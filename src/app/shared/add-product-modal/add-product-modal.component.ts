@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {IonModal, ModalController} from '@ionic/angular';
 import {StateService} from '../../_services/state.service';
 import {Category} from '../../_models/Category.model';
@@ -12,26 +12,38 @@ import {isNumeric} from "rxjs/internal-compatibility";
   templateUrl: './add-product-modal.component.html',
   styleUrls: ['./add-product-modal.component.scss'],
 })
-export class AddProductModalComponent {
+export class AddProductModalComponent implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
+  @Input() product: Product;
+  @Input() edit: boolean = false;
 
-  name = '';
-  description = '';
-  categoryId = null;
-  validityData = new Date();
   expirationDays: number = 7;
 
   categories: Array<Category> = [];
 
   isOpenDatePicker = false;
+  minDate: string = new Date().toISOString().substr(0, 10);
 
   constructor(
     private modalCtrl: ModalController,
     private state: StateService,
     private toast: ToastService,
   ) {
-    this.state.categories$.subscribe(categories => this.categories = categories);
-    this.validityData.setDate(this.validityData.getDate() + this.expirationDays);
+    if(this.product) {
+      this.product = new Product(this.product);
+    } else {
+      this.product = new Product();
+    }
+  }
+
+  ngOnInit() {
+    this.state.categories$.subscribe(categories => {
+      this.categories = categories;
+    });
+
+    if(this.product.validityDate) {
+      this.expirationDays = Math.round(( this.product.validityDate.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
+    }
   }
 
   cancel() {
@@ -39,35 +51,36 @@ export class AddProductModalComponent {
   }
 
   confirm() {
-    const product = new Product({
-      name: this.name,
-      description: this.description,
-      categoryId: this.categoryId,
-      validityData: this.validityData
-    });
-
-    this.state.addProduct(product).then(() => {
-      this.toast.show('Dodano produkt');
-      return this.modalCtrl.dismiss();
-    });
-
+    if(this.edit) {
+      this.state.editProduct(this.product).then(() => {
+        this.toast.show('Edytowano produkt');
+        return this.modalCtrl.dismiss();
+      });
+    } else {
+      this.state.addProduct(this.product).then(() => {
+        this.toast.show('Dodano produkt');
+        return this.modalCtrl.dismiss();
+      });
+    }
   }
 
   changeName(e) {
-    this.name = e.target.value;
+    this.product.name = e.target.value;
   }
 
   changeDesc(e) {
-    this.description = e.target.value;
+    this.product.description = e.target.value;
   }
 
   changeCategory(e) {
-    this.categoryId = e.target.value;
+    this.product.categoryId = e.target.value;
   }
 
   changeDate(e) {
-    this.validityData = new Date(e.target.value);
-    this.expirationDays = Math.round(( this.validityData.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
+    const newValidityDate = new Date(e.target.value);
+    const days = Math.round(( newValidityDate.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
+    this.product.validityDate = newValidityDate;
+    this.expirationDays = days;
     this.isOpenDatePicker = false;
   };
 
@@ -75,8 +88,7 @@ export class AddProductModalComponent {
     value = Number(value);
     if(value) {
       this.expirationDays = value;
-      this.validityData = new Date(this.validityData.setDate(new Date().getDate() + value));
-      console.log('validity date',  this.validityData);
+      this.product.validityDate = new Date(this.product.validityDate.setDate(new Date().getDate() + value));
     }
   }
 }

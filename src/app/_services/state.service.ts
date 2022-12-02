@@ -11,7 +11,6 @@ import {Location} from "../_models/Location.model";
   providedIn: 'root'
 })
 
-
 export class StateService {
   state = new State({
       loading: true,
@@ -36,16 +35,19 @@ export class StateService {
         storage.get('categories').then(categories => {
           if (categories) {
             this.categories$.next(categories);
+            //this.categories$.next(categories.map(category => new Category(category)));
           }
         }),
         storage.get('products').then(products => {
           if (products) {
             this.products$.next(products);
+            //this.products$.next(products.map(product => new Product(product)));
           }
         }),
         storage.get('locations').then(locations => {
           if (locations) {
             this.locations$.next(locations);
+            //this.locations$.next(locations.map(location => new Location(location)));
           }
         })
       ]);
@@ -104,6 +106,13 @@ export class StateService {
     return this.saveProducts();
   }
 
+  editProduct(product: Product) {
+    console.log('xxa', product)
+    this.products$.next(this.products$.getValue().map(prod => prod.uuid === product.uuid ? product : prod));
+
+    return this.saveProducts();
+  }
+
   removeProduct(uuid: string) {
     this.products$.next(
       this.products$.getValue().filter(product => (product.uuid !== uuid))
@@ -127,6 +136,12 @@ export class StateService {
       ...this.locations$.getValue(),
       location
     ]);
+
+    return this.saveLocations();
+  }
+
+  editLocation(location: Location) {
+    this.locations$.next(this.locations$.getValue().map(loc => loc.uuid === location.uuid ? location : loc));
 
     return this.saveLocations();
   }

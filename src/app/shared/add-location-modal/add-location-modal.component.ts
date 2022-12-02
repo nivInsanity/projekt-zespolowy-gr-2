@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {IonModal, ModalController} from "@ionic/angular";
 import {StateService} from "../../_services/state.service";
 import {Location} from "../../_models/Location.model";
@@ -9,18 +9,31 @@ import {Location} from "../../_models/Location.model";
   styleUrls: ['./add-location-modal.component.scss'],
 })
 export class AddLocationModalComponent implements OnInit {
-  location: Location = new Location();
+  @Input() location: Location;
+  @Input() edit: boolean = false;
 
-  constructor(private modal: ModalController, private state: StateService) { }
+  constructor(private modal: ModalController, private state: StateService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.location) {
+      this.location = new Location(this.location); // Tworzy kopie obieku aby nie operować na oryginale
+    } else {
+      this.location = new Location(); // Jesli nie przekazano do komponentu lokalizacji utworz nowa - pusta
+    }
+  }
 
   handleChangeName(e) {
     this.location.name = e.target.value;
   }
 
   confirm() {
-    this.state.addLocation(this.location);
+    if(this.edit) {
+      this.state.editLocation(this.location);
+    } else {
+      this.state.addLocation(this.location);
+    }
+
     this.modal.dismiss();
   }
 

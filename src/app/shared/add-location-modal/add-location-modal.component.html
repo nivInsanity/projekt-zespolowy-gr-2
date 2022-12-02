@@ -4,7 +4,7 @@
       <ion-button color="medium" (click)="cancel()">Anuluj</ion-button>
     </ion-buttons>
     <ion-title>
-      Dodaj lokalizację
+      {{edit ? 'Edytuj ' : 'Dodaj '}} lokalizację
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="confirm()" [disabled]="!location.name.length">Zapisz</ion-button>

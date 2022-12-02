@@ -3,20 +3,20 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">Anuluj</ion-button>
     </ion-buttons>
-    <ion-title>Dodaj produkt</ion-title>
+    <ion-title>{{edit ? 'Edytuj ' : 'Dodaj '}} produkt</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!name.length || !categoryId">Zapisz</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!product.name || !product.categoryId">Zapisz</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
     <ion-label position="stacked">Nazwa</ion-label>
-    <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)"></ion-input>
+    <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)" [value]="product.name"></ion-input>
   </ion-item>
 
   <ion-item>
-      <ion-select interface="action-sheet" placeholder="Wybierz kategorię" (ionChange)="changeCategory($event)" style="width: 100%">
+      <ion-select interface="action-sheet" placeholder="Wybierz kategorię" (ionChange)="changeCategory($event)" [value]="product.categoryId" style="width: 100%">
         <ion-select-option [value]="cat.uuid" *ngFor="let cat of categories">{{cat.name}}</ion-select-option>
       </ion-select>
   </ion-item>
@@ -35,13 +35,13 @@
   </div>
   <ion-item>
     <ion-button (click)="isOpenDatePicker = true" *ngIf="!isOpenDatePicker" style="margin: 0 auto;">
-      {{validityData.toLocaleDateString()}}
+      {{product.validityDate.toLocaleDateString()}}
     </ion-button>
   </ion-item>
-  <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker"></ion-datetime>
+  <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker" [min]="minDate"></ion-datetime>
 
   <ion-item>
     <ion-label position="stacked">Notatki</ion-label>
-    <ion-textarea name="description" placeholder="notatki" (ionChange)="changeDesc($event)"></ion-textarea>
+    <ion-textarea name="description" placeholder="notatki" (ionChange)="changeDesc($event)" [value]="product.description"></ion-textarea>
   </ion-item>
 </ion-content>

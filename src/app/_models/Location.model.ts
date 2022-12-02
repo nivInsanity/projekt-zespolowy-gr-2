@@ -5,17 +5,14 @@ export class Location {
   name: string = '';
 
   constructor(location?: Location) {
+    this.uuid = uuidv4();
+
     if(location) {
       if (location.uuid) {
         this.uuid = location.uuid;
-      } else {
-        this.uuid = uuidv4();
       }
 
-      this.uuid = location.uuid;
       this.name = location.name;
-    } else {
-      this.uuid = uuidv4();
     }
   }
 }

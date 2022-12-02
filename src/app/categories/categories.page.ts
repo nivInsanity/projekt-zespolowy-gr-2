@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddCategoryModalComponent} from '../shared/add-category-modal/add-category-modal.component';
 import {ModalController} from '@ionic/angular';
 import {ToastService} from '../_services/toast.service';
@@ -10,13 +10,15 @@ import {StateService} from '../_services/state.service';
   templateUrl: 'categories.page.html',
   styleUrls: ['categories.page.scss']
 })
-export class CategoriesPage {
+export class CategoriesPage implements OnInit {
   categories: Array<Category> = [];
 
   constructor(private modal: ModalController, private state: StateService, private toast: ToastService) {
+  }
+
+  ngOnInit() {
     this.state.categories$.subscribe(categories => {
       this.categories = categories;
-      console.log('categories', categories);
     });
   }
 
@@ -37,7 +39,8 @@ export class CategoriesPage {
     const modal = await this.modal.create({
       component: AddCategoryModalComponent,
       componentProps: {
-        category
+        category,
+        edit: true
       }
     });
 

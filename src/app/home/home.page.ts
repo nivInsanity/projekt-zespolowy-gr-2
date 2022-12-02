@@ -37,6 +37,18 @@ export class HomePage {
     modal.present();
   }
 
+  async openEditProductModal(product: Product) {
+    const modal = await this.modal.create({
+      component: AddProductModalComponent,
+      componentProps: {
+        product,
+        edit: true
+      }
+    });
+
+    modal.present();
+  }
+
   remove(uuid: string) {
     this.toast.show('Usunięto produkt');
     this.state.removeProduct(uuid);

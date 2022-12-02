@@ -2,10 +2,10 @@ import {v4 as uuidv4} from 'uuid';
 
 export class Product {
   uuid?: string;
-  name: string;
-  description: string;
-  categoryId: string;
-  validityData: Date;
+  name: string = '';
+  description: string = '';
+  categoryId: string = '';
+  validityDate: Date;
 
   constructor(product?: Product) {
     this.uuid = uuidv4();
@@ -13,16 +13,15 @@ export class Product {
     if (product) {
       if (product.uuid) {
         this.uuid = product.uuid;
-      } else {
-        this.uuid = uuidv4();
       }
 
       this.name = product.name;
       this.description = product.description;
       this.categoryId = product.categoryId;
-      this.validityData = product.validityData;
+      this.validityDate = new Date(product.validityDate);
     } else {
-      this.uuid = uuidv4();
+      // this.validityDate = new Date();
+      // this.validityDate.setDate(this.validityDate.getDate() + 7);
     }
   }
 };

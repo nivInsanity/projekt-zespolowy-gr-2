@@ -30,8 +30,16 @@ export class LocationsPage {
     modal.present();
   }
 
-  openEditLocation(location: Location) {
+  async openEditLocation(location: Location) {
+    const modal = await this.modal.create({
+      component: AddLocationModalComponent,
+      componentProps: {
+        location,
+        edit: true
+      }
+    });
 
+    modal.present();
   }
 
   remove(uuid: string) {
