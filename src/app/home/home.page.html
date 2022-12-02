@@ -10,8 +10,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-accordion-group [value]="defaultCategory.uuid">
-    <ion-accordion [value]="cat.uuid" *ngFor="let cat of categories" >
+  <ion-accordion-group [value]="defaultCategory.uuid" *ngIf="categories.length">
+    <ion-accordion [value]="cat.uuid" *ngFor="let cat of categories">
       <ion-item slot="header" color="light" *ngIf="(products | filterProductsByCatId: cat.uuid).length">
         <ion-label>{{cat.name}}</ion-label>
       </ion-item>
