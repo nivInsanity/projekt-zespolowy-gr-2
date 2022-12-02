@@ -4,7 +4,7 @@ import {StateService} from '../../_services/state.service';
 import {Category} from '../../_models/Category.model';
 import {ToastService} from '../../_services/toast.service';
 import {Product} from '../../_models/Product.model';
-import {Location} from "../../_models/Location.model";
+import {Location} from '../../_models/Location.model';
 
 @Component({
   selector: 'app-add-category-modal',
@@ -42,7 +42,9 @@ export class AddProductModalComponent implements OnInit {
 
       if(!this.edit) {
         const defaultCategory = this.categories.find(cat => cat.default === true);
-        this.product.categoryId = defaultCategory.uuid;
+        if(defaultCategory) {
+          this.product.categoryId = defaultCategory.uuid;
+        }
       }
     });
 

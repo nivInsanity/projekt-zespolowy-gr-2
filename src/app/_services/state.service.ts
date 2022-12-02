@@ -34,20 +34,20 @@ export class StateService {
       promises.push([
         storage.get('categories').then(categories => {
           if (categories) {
-            this.categories$.next(categories);
-            //this.categories$.next(categories.map(category => new Category(category)));
+            //this.categories$.next(categories);
+            this.categories$.next(categories.map(category => new Category(category)));
           }
         }),
         storage.get('products').then(products => {
           if (products) {
-            this.products$.next(products);
-            //this.products$.next(products.map(product => new Product(product)));
+            //this.products$.next(products);
+            this.products$.next(products.map(product => new Product(product)));
           }
         }),
         storage.get('locations').then(locations => {
           if (locations) {
-            this.locations$.next(locations);
-            //this.locations$.next(locations.map(location => new Location(location)));
+            //this.locations$.next(locations);
+            this.locations$.next(locations.map(location => new Location(location)));
           }
         })
       ]);
