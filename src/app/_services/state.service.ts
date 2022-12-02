@@ -137,11 +137,27 @@ export class StateService {
       location
     ]);
 
+    if(location.default) {
+      this.locations$.getValue().map(loc => {
+        if(loc.uuid !== location.uuid) {
+          loc.default = false; // Ustawienie default na false dla pozostałych lokalizacji
+        }
+      });
+    }
+
     return this.saveLocations();
   }
 
   editLocation(location: Location) {
     this.locations$.next(this.locations$.getValue().map(loc => loc.uuid === location.uuid ? location : loc));
+
+    if(location.default) {
+      this.locations$.getValue().map(loc => {
+        if(loc.uuid !== location.uuid) {
+          loc.default = false; // Ustawienie default na false dla pozostałych lokalizacji
+        }
+      });
+    }
 
     return this.saveLocations();
   }

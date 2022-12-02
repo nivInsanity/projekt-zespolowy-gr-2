@@ -17,4 +17,9 @@
     <ion-input name="name" placeholder="nazwa" (ionChange)="handleChangeName($event)" [value]="location.name"></ion-input>
   </ion-item>
 
+  <ion-item>
+    <ion-checkbox slot="start" [checked]="location.default" (ionChange)="handleChangeDefault($event)"></ion-checkbox>
+    <ion-label>Domyślna</ion-label>
+  </ion-item>
+
 </ion-content>

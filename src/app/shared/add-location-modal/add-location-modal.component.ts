@@ -40,4 +40,8 @@ export class AddLocationModalComponent implements OnInit {
   cancel() {
     return this.modal.dismiss();
   }
+
+  handleChangeDefault(e) {
+    this.location.default = e.target.checked;
+  }
 }
