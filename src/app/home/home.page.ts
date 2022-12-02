@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StateService} from '../_services/state.service';
 import {Product} from '../_models/Product.model';
 import {StorageService} from '../_services/storage.service';
@@ -13,20 +13,25 @@ import {Category} from '../_models/Category.model';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage {
-  categories: Array<Category>;
+export class HomePage implements OnInit {
+  categories: Array<Category> = [];
   defaultCategory: Category;
-  products: Array<Product>;
+  products: Array<Product> = [];
   loading = false;
 
   constructor(private state: StateService, private modal: ModalController, private toast: ToastService) {
+  }
+
+  ngOnInit() {
     this.state.categories$.subscribe(categories => {
       this.categories = categories;
-      this.defaultCategory = categories.find(cat => cat.default);
+
+      const defaultCategory = categories.find(cat => cat.default);
+      this.defaultCategory = defaultCategory;
     });
+
     this.state.products$.subscribe(products => {
       this.products = products;
-      console.log('products', products);
     });
   }
 
