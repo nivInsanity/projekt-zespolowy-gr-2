@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>{{edit ? 'Edytuj ' : 'Dodaj '}} produkt</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!product.name || !product.categoryId">Zapisz</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!product.name">Zapisz</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,8 +17,15 @@
 
   <ion-item>
       <ion-select interface="action-sheet" placeholder="Wybierz kategorię" (ionChange)="changeCategory($event)" [value]="product.categoryId" style="width: 100%">
+        <ion-select-option [value]="null">Bez kategorii</ion-select-option>
         <ion-select-option [value]="cat.uuid" *ngFor="let cat of categories">{{cat.name}}</ion-select-option>
       </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select interface="action-sheet" placeholder="Wybierz lokalizację" (ionChange)="changeLocation($event)" [value]="product.locationId" style="width: 100%">
+      <ion-select-option [value]="null">Domyślna</ion-select-option>
+      <ion-select-option [value]="loc.uuid" *ngFor="let loc of locations">{{loc.name}}</ion-select-option>
+    </ion-select>
   </ion-item>
   <div class="dataP">Data przydatności</div>
   <div class="daysCounter">
@@ -35,7 +42,7 @@
   </div>
   <ion-item>
     <ion-button (click)="isOpenDatePicker = true" *ngIf="!isOpenDatePicker" style="margin: 0 auto;">
-      {{product.validityDate.toLocaleDateString()}}
+      {{product.validityDate && product.validityDate.toLocaleDateString()}}
     </ion-button>
   </ion-item>
   <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker" [min]="minDate"></ion-datetime>

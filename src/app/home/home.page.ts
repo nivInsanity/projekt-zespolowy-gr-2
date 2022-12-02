@@ -15,13 +15,14 @@ import {Category} from '../_models/Category.model';
 })
 export class HomePage {
   categories: Array<Category>;
+  defaultCategory: Category;
   products: Array<Product>;
   loading = false;
 
   constructor(private state: StateService, private modal: ModalController, private toast: ToastService) {
     this.state.categories$.subscribe(categories => {
       this.categories = categories;
-      console.log('categories', categories);
+      this.defaultCategory = categories.find(cat => cat.default);
     });
     this.state.products$.subscribe(products => {
       this.products = products;
@@ -52,5 +53,9 @@ export class HomePage {
   remove(uuid: string) {
     this.toast.show('Usunięto produkt');
     this.state.removeProduct(uuid);
+  }
+
+  getExpirationDays(product: Product) {
+    return Math.round(( product.validityDate.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
   }
 }

@@ -4,8 +4,7 @@ import {StateService} from '../../_services/state.service';
 import {Category} from '../../_models/Category.model';
 import {ToastService} from '../../_services/toast.service';
 import {Product} from '../../_models/Product.model';
-import {AddCategoryModalComponent} from '../add-category-modal/add-category-modal.component';
-import {isNumeric} from "rxjs/internal-compatibility";
+import {Location} from "../../_models/Location.model";
 
 @Component({
   selector: 'app-add-category-modal',
@@ -17,9 +16,10 @@ export class AddProductModalComponent implements OnInit {
   @Input() product: Product;
   @Input() edit: boolean = false;
 
-  expirationDays: number = 7;
+  expirationDays: number = 356;
 
   categories: Array<Category> = [];
+  locations: Array<Location> = [];
 
   isOpenDatePicker = false;
   minDate: string = new Date().toISOString().substr(0, 10);
@@ -39,6 +39,22 @@ export class AddProductModalComponent implements OnInit {
   ngOnInit() {
     this.state.categories$.subscribe(categories => {
       this.categories = categories;
+
+      if(!this.edit) {
+        const defaultCategory = this.categories.find(cat => cat.default === true);
+        this.product.categoryId = defaultCategory.uuid;
+      }
+    });
+
+    this.state.locations$.subscribe(locations => {
+      this.locations = locations;
+
+      if(!this.edit) {
+        const defaultLocation = this.locations.find(loc => loc.default === true);
+        if(defaultLocation) {
+          this.product.locationId = defaultLocation.uuid;
+        }
+      }
     });
 
     if(this.product.validityDate) {
@@ -74,6 +90,10 @@ export class AddProductModalComponent implements OnInit {
 
   changeCategory(e) {
     this.product.categoryId = e.target.value;
+  }
+
+  changeLocation(e) {
+    this.product.locationId = e.target.value;
   }
 
   changeDate(e) {

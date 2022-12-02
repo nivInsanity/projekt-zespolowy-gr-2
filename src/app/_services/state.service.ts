@@ -65,11 +65,27 @@ export class StateService {
       category
     ]);
 
+    if(category.default) {
+      this.categories$.getValue().map(cat => {
+        if(cat.uuid !== category.uuid) {
+          cat.default = false; // Ustawienie default na false dla pozostałych lokalizacji
+        }
+      });
+    }
+
     return this.saveCategories();
   }
 
   editCategory(category: Category) {
     this.categories$.next(this.categories$.getValue().map(cat => cat.uuid === category.uuid ? category : cat));
+
+    if(category.default) {
+      this.categories$.getValue().map(cat => {
+        if(cat.uuid !== category.uuid) {
+          cat.default = false; // Ustawienie default na false dla pozostałych lokalizacji
+        }
+      });
+    }
 
     return this.saveCategories();
   }

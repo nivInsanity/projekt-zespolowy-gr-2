@@ -34,7 +34,6 @@ export class AddCategoryModalComponent implements OnInit {
   }
 
   confirm() {
-
     if(this.edit) {
       this.state.editCategory(this.category).then(() => {
         this.toast.show('Edytowano kategorię');
@@ -49,15 +48,19 @@ export class AddCategoryModalComponent implements OnInit {
 
   }
 
-  changeName(e) {
+  handleChangeName(e) {
     this.category.name = e.target.value;
   }
 
-  changeDesc(e) {
+  handleChangeDesc(e) {
     this.category.description = e.target.value;
   }
 
-  changeNotifyDays(e) {
+  handleChangeNotifyDays(e) {
    this.category.notifyDays = e.target.value;
+  }
+
+  handleChangeDefault(e) {
+    this.category.default = e.target.checked;
   }
 }

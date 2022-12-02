@@ -10,31 +10,42 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Produkty</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-list>
-    <div *ngFor="let cat of categories">
-      <ion-item-divider *ngIf="(products | filterProductsByCatId: cat.uuid).length">
-        <ion-label class="catName">
-          {{cat.name}}
-        </ion-label>
-      </ion-item-divider>
-
-      <ion-item *ngFor="let prod of products | filterProductsByCatId: cat.uuid" (click)="openEditProductModal(prod)">
-        <ion-label>{{prod.name}}  <span *ngIf="prod.validityDate">({{prod.validityDate.toLocaleString()}})</span></ion-label>
-        <ion-button color="danger" (click)="remove(prod.uuid)">
-          <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
-        </ion-button>
+  <ion-accordion-group [value]="defaultCategory.uuid">
+    <ion-accordion [value]="cat.uuid" *ngFor="let cat of categories" >
+      <ion-item slot="header" color="light" *ngIf="(products | filterProductsByCatId: cat.uuid).length">
+        <ion-label>{{cat.name}}</ion-label>
       </ion-item>
-    </div>
-  </ion-list>
+
+      <div class="ion-padding" slot="content">
+        <ion-item *ngFor="let prod of products | filterProductsByCatId: cat.uuid" (click)="openEditProductModal(prod)">
+          <ion-label>{{prod.name}}  <span *ngIf="prod.validityDate">({{prod.validityDate.toLocaleString()}})</span></ion-label>
+          <ion-button color="danger" (click)="remove(prod.uuid)">
+            <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion [value]="null" *ngIf="(products | filterProductsByCatId: null).length">
+      <ion-item slot="header" color="light">
+        <ion-label>Bez kategorii</ion-label>
+      </ion-item>
+
+      <div class="ion-padding" slot="content">
+        <ion-item *ngFor="let prod of products | filterProductsByCatId: null" (click)="openEditProductModal(prod)">
+          <ion-label>
+            {{prod.name}}
+            ({{getExpirationDays(prod)}})
+          </ion-label>
+          <ion-button color="danger" (click)="remove(prod.uuid)">
+            <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 
   <app-no-data *ngIf="!products.length" text="Brak produktów"></app-no-data>
-
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openAddProductModal()">
