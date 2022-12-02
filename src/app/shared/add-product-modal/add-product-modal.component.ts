@@ -106,11 +106,13 @@ export class AddProductModalComponent implements OnInit {
     this.isOpenDatePicker = false;
   };
 
-  changeDays(value) {
-    value = Number(value);
-    if(value) {
-      this.expirationDays = value;
-      this.product.validityDate = new Date(this.product.validityDate.setDate(new Date().getDate() + value));
+  changeDays(days) {
+    days = Number(days);
+    console.log('days', days);
+    if(days) {
+      this.expirationDays = days;
+      this.product.validityDate = new Date();
+      this.product.validityDate = new Date(this.product.validityDate.setDate(this.product.validityDate.getDate() + days));
     }
   }
 }

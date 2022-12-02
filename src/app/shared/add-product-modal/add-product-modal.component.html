@@ -30,14 +30,14 @@
   <div class="dataP">Data przydatności</div>
   <div class="daysCounter">
     <div>
-      <ion-button (click)="changeDays(expirationDays-1)">-</ion-button>
+      <ion-button (click)="changeDays(expirationDays-2)">-</ion-button>
     </div>
     <div>
       <ion-label position="stacked">Dni</ion-label>
       <ion-input name="days" placeholder="Dni" (ionChange)="changeDays($event.target.value)" [value]="expirationDays"></ion-input>
     </div>
     <div>
-      <ion-button (click)="changeDays(expirationDays+1)">+</ion-button>
+      <ion-button (click)="changeDays(expirationDays+2)">+</ion-button>
     </div>
   </div>
   <ion-item>
