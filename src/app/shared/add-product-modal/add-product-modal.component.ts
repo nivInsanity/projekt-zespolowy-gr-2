@@ -29,14 +29,14 @@ export class AddProductModalComponent implements OnInit {
     private state: StateService,
     private toast: ToastService,
   ) {
+  }
+
+  ngOnInit() {
     if(this.product) {
       this.product = new Product(this.product);
     } else {
       this.product = new Product();
     }
-  }
-
-  ngOnInit() {
     this.state.categories$.subscribe(categories => {
       this.categories = categories;
 
