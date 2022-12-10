@@ -115,4 +115,15 @@ export class AddProductModalComponent implements OnInit {
       this.product.validityDate = new Date(this.product.validityDate.setDate(this.product.validityDate.getDate() + days));
     }
   }
+
+  changeCount(option: 'remove' | 'add' | 'set', value?: number) {
+    if(option === 'set') {
+      this.product.count = value;
+    } else if(option === 'add') {
+      this.product.count++;
+    } else if(this.product.count) {
+      this.product.count--;
+    }
+  }
+
 }

@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
-    <ion-label position="stacked">Nazwa</ion-label>
+<!--    <ion-label position="stacked">Nazwa</ion-label>-->
     <ion-input name="name" placeholder="nazwa" (ionChange)="changeName($event)" [value]="product.name"></ion-input>
   </ion-item>
 
@@ -27,7 +27,7 @@
       <ion-select-option [value]="loc.uuid" *ngFor="let loc of locations">{{loc.name}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <div class="dataP">Data przydatności</div>
+<!--  <div class="dataP">Data przydatności</div>-->
   <div class="daysCounter">
     <div>
       <ion-button (click)="changeDays(expirationDays-2)">-</ion-button>
@@ -45,10 +45,25 @@
       {{product.validityDate && product.validityDate.toLocaleDateString()}}
     </ion-button>
   </ion-item>
+
+<!--  <div class="dataP">Ilość</div>-->
+  <div class="daysCounter">
+    <div>
+      <ion-button (click)="changeCount('remove')">-</ion-button>
+    </div>
+    <div>
+      <ion-label position="stacked">Ilość</ion-label>
+      <ion-input name="days" placeholder="Ilość" (ionChange)="changeCount('set', $event.target.value)" [value]="product.count"></ion-input>
+    </div>
+    <div>
+      <ion-button (click)="changeCount('add')">+</ion-button>
+    </div>
+  </div>
+
   <ion-datetime presentation="date" (ionChange)="changeDate($event)" *ngIf="isOpenDatePicker" [min]="minDate"></ion-datetime>
 
   <ion-item>
-    <ion-label position="stacked">Notatki</ion-label>
+<!--    <ion-label position="stacked">Notatki</ion-label>-->
     <ion-textarea name="description" placeholder="notatki" (ionChange)="changeDesc($event)" [value]="product.description"></ion-textarea>
   </ion-item>
 </ion-content>

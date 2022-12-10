@@ -7,6 +7,7 @@ export class Product {
   categoryId: string = null;
   locationId: string = null;
   validityDate: Date = new Date();
+  count: number = 1;
 
   constructor(product?: Product) {
     this.uuid = uuidv4();
@@ -19,6 +20,7 @@ export class Product {
       this.name = product.name;
       this.description = product.description;
       this.categoryId = product.categoryId;
+      this.count = product.count;
       this.validityDate = new Date(product.validityDate);
     } else {
       this.validityDate = new Date();

@@ -123,7 +123,6 @@ export class StateService {
   }
 
   editProduct(product: Product) {
-    console.log('xxa', product)
     this.products$.next(this.products$.getValue().map(prod => prod.uuid === product.uuid ? product : prod));
 
     return this.saveProducts();
