@@ -9,16 +9,43 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-item *ngFor="let prod of products" (click)="openEditProductModal(prod)">
-    <ion-label>
-      {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
-      <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
-    </ion-label>
-    <ion-button color="success" (click)="restore(prod.uuid)">
-      <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-segment value="default" [(ngModel)]="segment">
+    <ion-segment-button value="products">
+      <ion-label>Produkty</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="categories">
+      <ion-label>Kategorie</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <app-no-data *ngIf="!products.length" text="Brak usuniętych produktów"></app-no-data>
+  <br/>
+
+  <div [ngSwitch]="segment">
+    <div *ngSwitchCase="'products'">
+      <ion-item *ngFor="let prod of products" (click)="openEditProductModal(prod)">
+        <ion-label>
+          {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
+          <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
+        </ion-label>
+        <ion-button color="success" (click)="restoreProduct(prod.uuid)">
+          <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <app-no-data *ngIf="!products.length" text="Brak usuniętych produktów"></app-no-data>
+    </div>
+    <div *ngSwitchCase="'categories'">
+      <ion-list>
+        <ion-item *ngFor="let cat of categories" (click)="openEditCategoryModal(cat)">
+          <ion-label>{{cat.name}}</ion-label>
+          <ion-button color="success" (click)="restoreCategory(cat.uuid)">
+            <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <app-no-data *ngIf="!categories.length" text="Brak kategorii"></app-no-data>
+    </div>
+  </div>
 </ion-content>

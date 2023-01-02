@@ -5,6 +5,8 @@ import {getExpirationDays} from '../_helpers/helpers';
 import {ToastService} from "../_services/toast.service";
 import {AddProductModalComponent} from "../shared/add-product-modal/add-product-modal.component";
 import {ModalController} from "@ionic/angular";
+import {Category} from "../_models/Category.model";
+import {AddCategoryModalComponent} from "../shared/add-category-modal/add-category-modal.component";
 
 @Component({
   selector: 'app-bin',
@@ -13,6 +15,8 @@ import {ModalController} from "@ionic/angular";
 })
 export class BinPage implements OnInit {
   products: Array<Product> = [];
+  categories: Array<Category> = [];
+  segment: string = 'products';
   getExpirationDays = getExpirationDays;
 
   constructor(private state: StateService, private toast: ToastService, private modal: ModalController) { }
@@ -21,11 +25,20 @@ export class BinPage implements OnInit {
     this.state.products$.subscribe(products => {
       this.products = products.filter(p => p.deleted);
     });
+
+    this.state.categories$.subscribe(categories => {
+      this.categories = categories.filter(c => c.deleted);
+    });
   }
 
-  restore(uuid: string) {
+  restoreProduct(uuid: string) {
     this.state.restoreProduct(uuid);
     this.toast.show('Przywrócono produkt');
+  }
+
+  restoreCategory(uuid: string) {
+    this.state.restoreCategory(uuid);
+    this.toast.show('Przywrócono kategorię');
   }
 
   async openEditProductModal(product: Product) {
@@ -33,6 +46,18 @@ export class BinPage implements OnInit {
       component: AddProductModalComponent,
       componentProps: {
         product,
+        edit: true
+      }
+    });
+
+    modal.present();
+  }
+
+  async openEditCategoryModal(category: Category) {
+    const modal = await this.modal.create({
+      component: AddCategoryModalComponent,
+      componentProps: {
+        category,
         edit: true
       }
     });

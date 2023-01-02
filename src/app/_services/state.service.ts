@@ -92,17 +92,24 @@ export class StateService {
 
   removeCategory(uuid: string) {
     this.categories$.next(
-      this.categories$.getValue().filter(category => (category.uuid !== uuid))
+      this.categories$.getValue().map(category => (category.uuid === uuid ? {...category, deleted: true } : category))
     );
 
     this.products$.next(
-      this.products$.getValue().filter(product => (product.categoryId !== uuid))
+      this.products$.getValue().map(product => (product.categoryId === uuid ? {...product, deleted: true} : product))
     );
 
     this.saveCategories();
     this.saveProducts();
   }
 
+  restoreCategory(uuid: string) {
+    this.categories$.next(
+      this.categories$.getValue().map(category => (category.uuid === uuid ? {...category, deleted: false} : category))
+    );
+
+    return this.saveCategories();
+  }
 
   saveCategories() {
     const categories = this.categories$.getValue();

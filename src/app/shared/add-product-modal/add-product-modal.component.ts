@@ -38,7 +38,7 @@ export class AddProductModalComponent implements OnInit {
       this.product = new Product();
     }
     this.state.categories$.subscribe(categories => {
-      this.categories = categories;
+      this.categories = this.product.deleted ? categories : categories.filter(c => !c.deleted);
 
       if(!this.edit) {
         const defaultCategory = this.categories.find(cat => cat.default === true);

@@ -6,6 +6,7 @@ export class Category {
   description: string = '';
   notifyDays: number = 7;
   default: boolean = false;
+  deleted: boolean = false;
 
   constructor(cat?: Category) {
     this.uuid = uuidv4();
@@ -19,6 +20,7 @@ export class Category {
       this.description = cat.description;
       this.notifyDays = cat.notifyDays;
       this.default = cat.default;
+      this.deleted = cat.deleted;
     }
   }
 };

@@ -18,7 +18,7 @@ export class CategoriesPage implements OnInit {
 
   ngOnInit() {
     this.state.categories$.subscribe(categories => {
-      this.categories = categories;
+      this.categories = categories.filter(c => !c.deleted);
     });
   }
 
