@@ -7,6 +7,7 @@ import {ModalController} from '@ionic/angular';
 import {AddProductModalComponent} from '../shared/add-product-modal/add-product-modal.component';
 import {ToastService} from '../_services/toast.service';
 import {Category} from '../_models/Category.model';
+import {getExpirationDays} from "../_helpers/helpers";
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomePage implements OnInit {
   defaultCategory: Category;
   products: Array<Product> = [];
   loading = false;
+  getExpirationDays = getExpirationDays;
 
   constructor(private state: StateService, private modal: ModalController, private toast: ToastService) {
   }
@@ -31,7 +33,7 @@ export class HomePage implements OnInit {
     });
 
     this.state.products$.subscribe(products => {
-      this.products = products;
+      this.products = products.filter(p => !p.deleted);
     });
   }
 
@@ -60,7 +62,7 @@ export class HomePage implements OnInit {
     this.state.removeProduct(uuid);
   }
 
-  getExpirationDays(product: Product) {
-    return Math.round(( product.validityDate.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
-  }
+  // getExpirationDays(product: Product) {
+  //   return Math.round(( product.validityDate.getTime() - new Date().getTime() ) / (1000 * 3600 * 24));
+  // }
 }

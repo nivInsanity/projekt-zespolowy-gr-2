@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Kosz
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item *ngFor="let prod of products" (click)="openEditProductModal(prod)">
+    <ion-label>
+      {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
+      <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
+    </ion-label>
+    <ion-button color="success" (click)="restore(prod.uuid)">
+      <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <app-no-data *ngIf="!products.length" text="Brak usuniętych produktów"></app-no-data>
+</ion-content>

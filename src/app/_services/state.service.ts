@@ -130,12 +130,19 @@ export class StateService {
 
   removeProduct(uuid: string) {
     this.products$.next(
-      this.products$.getValue().filter(product => (product.uuid !== uuid))
+      this.products$.getValue().map(product => (product.uuid === uuid ? {...product, deleted: true} : product))
     );
 
     return this.saveProducts();
   }
 
+  restoreProduct(uuid: string) {
+    this.products$.next(
+      this.products$.getValue().map(product => (product.uuid === uuid ? {...product, deleted: false} : product))
+    );
+
+    return this.saveProducts();
+  }
 
   saveProducts() {
     const products = this.products$.getValue();
