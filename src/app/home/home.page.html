@@ -20,7 +20,7 @@
         <ion-item *ngFor="let prod of products | filterProductsByCatId: cat.uuid" (click)="openEditProductModal(prod)">
           <ion-label>
             {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
-            <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
+            <p class="ion-float-right" [class.warning]="helpers.getExpirationDays(prod) <= cat.notifyDays"><i>{{prod.description}}</i>&nbsp;<b>{{helpers.getExpirationDays(prod)}}D</b></p>
           </ion-label>
           <ion-button color="danger" (click)="remove(prod.uuid)">
             <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>
@@ -38,7 +38,9 @@
         <ion-item *ngFor="let prod of products | filterProductsByCatId: null" (click)="openEditProductModal(prod)">
           <ion-label>
             {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
-            <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
+            <p class="ion-float-right" [class.warning]="helpers.getExpirationDays(prod) <= 3"><i>{{prod.description}}</i>&nbsp;<b>{{helpers.getExpirationDays(prod)}}D</b></p>
+
+<!--            <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{helpers.getExpirationDays(prod)}}D</b></p>-->
           </ion-label>
           <ion-button color="danger" (click)="remove(prod.uuid)">
             <ion-icon slot="icon-only" name="trash" size="small"></ion-icon>

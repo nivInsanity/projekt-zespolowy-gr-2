@@ -7,6 +7,7 @@ import {AddCategoryModalComponent} from './add-category-modal/add-category-modal
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {HttpClientModule} from '@angular/common/http';
 import {FilterProductsByCatIdPipe} from '../_pipes/filter-products-by-cat-id/filter-products-by-cat-id.pipe';
+import {Helpers} from "../_helpers/helpers";
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import {FilterProductsByCatIdPipe} from '../_pipes/filter-products-by-cat-id/fil
   ],
   exports: [
     NoDataComponent,
-    FilterProductsByCatIdPipe
+    FilterProductsByCatIdPipe,
   ]
 })
 export class SharedModule {}

@@ -90,9 +90,15 @@ export class StateService {
     return this.saveCategories();
   }
 
-  removeCategory(uuid: string) {
+  removeCategory(uuid: string): boolean
+  {
+    const category = this.categories$.getValue().find(c => c.uuid === uuid);
+    if(category.default) {
+      return false;
+    }
+
     this.categories$.next(
-      this.categories$.getValue().map(category => (category.uuid === uuid ? {...category, deleted: true } : category))
+      this.categories$.getValue().map(c => (category.uuid === uuid ? {...c, deleted: true } : c))
     );
 
     this.products$.next(
@@ -101,6 +107,8 @@ export class StateService {
 
     this.saveCategories();
     this.saveProducts();
+
+    return true;
   }
 
   restoreCategory(uuid: string) {

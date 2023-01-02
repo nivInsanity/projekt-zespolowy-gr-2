@@ -31,8 +31,11 @@ export class CategoriesPage implements OnInit {
   }
 
   remove(uuid: string) {
-    this.toast.show('Usunięto kategorię');
-    this.state.removeCategory(uuid);
+    if (this.state.removeCategory(uuid)) {
+      this.toast.show('Usunięto kategorię');
+    } else {
+      this.toast.show('Nie można usunąć domyślnej kategorii');
+    }
   }
 
   async openEditCategoryModal(category: Category) {

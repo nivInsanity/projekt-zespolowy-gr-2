@@ -26,7 +26,7 @@
       <ion-item *ngFor="let prod of products" (click)="openEditProductModal(prod)">
         <ion-label>
           {{prod.name}} <span class="count" *ngIf="prod.count > 1"> x {{prod.count}}</span>
-          <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{getExpirationDays(prod)}}D&nbsp;</b></p>
+          <p class="ion-float-right"><i>{{prod.description}}</i>&nbsp;<b>{{helpers.getExpirationDays(prod)}}D&nbsp;</b></p>
         </ion-label>
         <ion-button color="success" (click)="restoreProduct(prod.uuid)">
           <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>

@@ -14,6 +14,7 @@ import {NoDataComponent} from './shared/no-data/no-data.component';
 import {SharedModule} from './shared/shared.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {FilterProductsByCatIdPipe} from './_pipes/filter-products-by-cat-id/filter-products-by-cat-id.pipe';
+import {Helpers} from "./_helpers/helpers";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import {FilterProductsByCatIdPipe} from './_pipes/filter-products-by-cat-id/filt
     SharedModule,
     AngularSvgIconModule.forRoot()
   ],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, StorageService],
+  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, StorageService, Helpers],
   bootstrap: [AppComponent],
   exports: [
     SharedModule

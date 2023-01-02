@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from "../_models/Product.model";
 import {StateService} from "../_services/state.service";
-import {getExpirationDays} from '../_helpers/helpers';
 import {ToastService} from "../_services/toast.service";
 import {AddProductModalComponent} from "../shared/add-product-modal/add-product-modal.component";
 import {ModalController} from "@ionic/angular";
 import {Category} from "../_models/Category.model";
 import {AddCategoryModalComponent} from "../shared/add-category-modal/add-category-modal.component";
+import {Helpers} from "../_helpers/helpers";
 
 @Component({
   selector: 'app-bin',
@@ -17,9 +17,8 @@ export class BinPage implements OnInit {
   products: Array<Product> = [];
   categories: Array<Category> = [];
   segment: string = 'products';
-  getExpirationDays = getExpirationDays;
 
-  constructor(private state: StateService, private toast: ToastService, private modal: ModalController) { }
+  constructor(private state: StateService, private toast: ToastService, private modal: ModalController, private helpers: Helpers) { }
 
   ngOnInit() {
     this.state.products$.subscribe(products => {
